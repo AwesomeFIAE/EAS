@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:head>
+		<title>EAS - Emergency Aid System</title>
+		<h:outputStylesheet name="primefaces-mytheme/theme.css"></h:outputStylesheet>
+		
+		<style>
+			#mainTabView {
+				width: 80%;
+				margin-left: auto;
+				margin-right: auto;
+			}
+			
+			.ui-panel {
+				width: 30%;
+				margin-left: 59.8%;
+			}
+
+			.ui-inputfield {
+				width: 100%;
+				margin-left: 10px;
+			}
+			
+			.ui-button {
+				width: 100%;
+			}
+			
+		</style>
+	</h:head>
+	<h:body>
+
+		<h:form id="form">
+			<p:panel id="loginPanel" header="Login" style="margin-bottom:10px;">
+			<p:messages id="messages" globalOnly="false"/>
+				<h:panelGrid columns="3">
+					<h:outputLabel for="username" value="Benutzername" />
+					<p:inputText id="username" value="#{admin.username}"
+						required="true"
+						requiredMessage="Tragen Sie bitte den Benutzernamen ein."
+						label="Username" /><br />
+					
+					<h:outputLabel for="password" value="Passwort"/>
+					<p:password id="password" value="#{admin.password}" required="true" requiredMessage="Tragen Sie bitte das Passwort ein."/><br />
+					
+					<p:commandButton value="Login" actionListener="#{admin.login}" update="loginPanel" id="login" styleClass="ui-priority-primary" />
+				</h:panelGrid>
+		</p:panel>
+		</h:form>
+
+		<p:tabView id="mainTabView" >
+			<p:tab id="employee" title="Mitarbeiter">
+				<ui:include src="test2.xhtml"/>
+			</p:tab>
+			<p:tab id="server" title="Server">
+				<ui:include src="test2.xhtml"/>
+			</p:tab>
+			<p:tab id="assignmentgroups" title="Assignmentgroups">
+				<ui:include src="test2.xhtml"/>
+			</p:tab>
+			<p:tab id="modelchanges" title="Modelchanges">
+				<ui:include src="test2.xhtml"/>
+			</p:tab>
+			<p:tab id="incidents" title="Incidents">
+				<ui:include src="test2.xhtml"/>
+			</p:tab>
+		</p:tabView>
+		
+	</h:body>
+</html>

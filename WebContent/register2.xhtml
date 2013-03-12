@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<title>EAS - Emergency Aid System</title>
+		<h:outputScript name="js/jquery-1.9.1.min.js" ></h:outputScript>
+		
+		<style>
+			.ui-widget-content tr, td{
+				border: none !important;
+			}	
+			
+			#register_btn {
+				float: right !important;
+			} 
+		</style>		
+	</h:head>
+	<h:body>
+	<h:form>	
+<h:panelGrid columns="1" cellpadding="5">  
+    <p:commandButton id="basic" value="Basic" onclick="dlg1.show();" type="button" />  
+  
+    <p:commandButton id="modalDialogButton" value="Modal" onclick="dlg2.show();" type="button"/>  
+  
+    <p:commandButton id="effectsDialogButton" value="Effects" onclick="dlg3.show();" type="button" />  
+</h:panelGrid>  
+  
+<p:dialog id="basicDialog" header="Basic Dialog" widgetVar="dlg1">  
+    <h:outputText value="Resistance to PrimeFaces is futile!" />  
+</p:dialog>  
+  
+<p:dialog id="modalDialog" header="Modal Dialog" widgetVar="dlg2" modal="true" height="100">  
+    <h:outputText value="This is a Modal Dialog." />  
+</p:dialog>  
+  
+<p:dialog header="Effects" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="100">  
+    <h:outputText value="This dialog has nice effects." />  
+</p:dialog> 
+	</h:form>
+	</h:body>
+</html>
