@@ -13,6 +13,8 @@ import java.util.Map;
 
 import javax.inject.Named;
 
+import models.Admin;
+
 import org.hibernate.CacheMode;
 import org.hibernate.FlushMode;
 import org.hibernate.HibernateException;
@@ -25,7 +27,6 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.ResultTransformer;
 import org.hibernate.type.Type;
 
-import adminarea.Admin;
 
 @Named
 public class AdminDAOImpl extends GenericDAOImpl<Admin, BigDecimal> implements AdminDAO, Serializable{

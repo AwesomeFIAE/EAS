@@ -1,21 +1,32 @@
 package models;
 
 public class Server {
-	private String serverID;
 	private String serverName;
-	
-	public String getServerID() {
-		return serverID;
-	}
-	public void setServerID(String serverID) {
-		this.serverID = serverID;
-	}
+	private String cumstomerIP;
+	private String adminIP;
+
 	public String getServerName() {
 		return serverName;
 	}
+
 	public void setServerName(String serverName) {
 		this.serverName = serverName;
 	}
-	
-	
+
+	public String getCumstomerIP() {
+		return cumstomerIP;
+	}
+
+	public void setCumstomerIP(String cumstomerIP) {
+		this.cumstomerIP = cumstomerIP;
+	}
+
+	public String getAdminIP() {
+		return adminIP;
+	}
+
+	public void setAdminIP(String adminIP) {
+		this.adminIP = adminIP;
+	}
+
 }

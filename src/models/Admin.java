@@ -1,4 +1,4 @@
-package adminarea;
+package models;
 
 import java.io.Serializable;
 
@@ -24,7 +24,7 @@ import dao.HibernateUtil;
 
 
 @Entity
-@Table(name = "admin")
+@Table(name = "eas_admin")
 @ManagedBean
 @SessionScoped
 public class Admin implements Serializable {

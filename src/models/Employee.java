@@ -1,11 +1,55 @@
 package models;
 
 public class Employee {
-	
+
 	private String name;
-	private String area;
-	private String handyNumber;
-	private String telephoneNumber;
+	private String workgroup;
+	private String officialHandyNumber;
+	private String privateHandyNumber;
+	private String telephoneNumberAtHome;
+	private String subsidiary;
+
+	public String getWorkgroup() {
+		return workgroup;
+	}
+
+	public void setWorkgroup(String workgroup) {
+		this.workgroup = workgroup;
+	}
+
+	public String getOfficialHandyNumber() {
+		return officialHandyNumber;
+	}
+
+	public void setOfficialHandyNumber(String officialHandyNumber) {
+		this.officialHandyNumber = officialHandyNumber;
+	}
+
+	public String getPrivateHandyNumber() {
+		return privateHandyNumber;
+	}
+
+	public void setPrivateHandyNumber(String privateHandyNumber) {
+		this.privateHandyNumber = privateHandyNumber;
+	}
+
+	public String getTelephoneNumberAtHome() {
+		return telephoneNumberAtHome;
+	}
+
+	public void setTelephoneNumberAtHome(String telephoneNumberAtHome) {
+		this.telephoneNumberAtHome = telephoneNumberAtHome;
+	}
+
+	public String getSubsidiary() {
+		return subsidiary;
+	}
+
+	public void setSubsidiary(String subsidiary) {
+		this.subsidiary = subsidiary;
+	}
+
+	private EmployeeType type;
 
 	public String getName() {
 		return name;
@@ -15,28 +59,12 @@ public class Employee {
 		this.name = name;
 	}
 
-	public String getArea() {
-		return area;
+	public EmployeeType getType() {
+		return type;
 	}
 
-	public void setArea(String area) {
-		this.area = area;
-	}
-
-	public String getHandyNumber() {
-		return handyNumber;
-	}
-
-	public void setHandyNumber(String handyNumber) {
-		this.handyNumber = handyNumber;
-	}
-
-	public String getTelephoneNumber() {
-		return telephoneNumber;
-	}
-
-	public void setTelephoneNumber(String telephoneNumber) {
-		this.telephoneNumber = telephoneNumber;
+	public void setType(EmployeeType type) {
+		this.type = type;
 	}
 
 }

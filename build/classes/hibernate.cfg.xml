@@ -16,7 +16,10 @@
 		<property name="hibernate.current_session_context_class">thread</property>
 		
 		<!-- Mapping-Dateien -->
-		<mapping class="adminarea.Admin"/>
+		<mapping class="models.Admin"/>
+		<mapping class="models.Server"/>
+		<mapping class="models.Assignmentgroup"/>
+		
 	</session-factory>
 
 </hibernate-configuration>
