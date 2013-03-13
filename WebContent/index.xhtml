@@ -7,52 +7,73 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 	<h:head>
 		<title>EAS - Emergency Aid System</title>
-		<h:outputStylesheet name="primefaces-mytheme/theme.css"></h:outputStylesheet>
 		
 		<style>
-			#mainTabView {
-				width: 80%;
-				margin-left: auto;
-				margin-right: auto;
-			}
+ 			#mainTabView { 
+ 				width: 80%; 
+ 				margin-left: auto; 
+ 				margin-right: auto; 
+ 			} 
+ 			
+ 			#banner { 
+ 				display: block;
+ 				margin-left: auto; 
+ 				margin-right: auto; 
+ 			}
+ 			
+ 			.loginIcon {
+ 				background-image: url("resources/images/login.png") !important;
+    			background-size: 50% !important; 
+    			background-repeat:no-repeat !important;
+ 				width: 60px !important; 
+ 				height: 30px !important;
+ 				float: right !important;
+ 			}
 			
-			.ui-panel {
-				width: 30%;
-				margin-left: 59.8%;
-			}
+/*  			.ui-panel {  */
+/*  				width: 30%;  */
+/*  				margin-left: 59.8%;  */
+/*  			} */ */
 
-			.ui-inputfield {
-				width: 100%;
-				margin-left: 10px;
-			}
+/*  			.ui-inputfield {  */
+/*  				width: 100%;  */
+/*  				margin-left: 10px;  */
+/*  			} */ */
 			
-			.ui-button {
-				width: 100%;
-			}
+/*  			.ui-button {  */
+/*  				width: 100%;  */
+/*  			}  */
 			
 		</style>
 	</h:head>
 	<h:body>
 
-		<h:form id="form">
-			<p:panel id="loginPanel" header="Login" style="margin-bottom:10px;">
-			<p:messages id="messages" globalOnly="false"/>
-				<h:panelGrid columns="3">
-					<h:outputLabel for="username" value="Benutzername" />
-					<p:inputText id="username" value="#{admin.username}"
-						required="true"
-						requiredMessage="Tragen Sie bitte den Benutzernamen ein."
-						label="Username" /><br />
-					
-					<h:outputLabel for="password" value="Passwort"/>
-					<p:password id="password" value="#{admin.password}" required="true" requiredMessage="Tragen Sie bitte das Passwort ein."/><br />
-					
-					<p:commandButton value="Login" actionListener="#{admin.login}" update="loginPanel" id="login" styleClass="ui-priority-primary" />
-				</h:panelGrid>
-		</p:panel>
-		</h:form>
+		<p:graphicImage id="banner" value="resources/images/TelekomBanner.jpg" style="border: none;" />
 
-		<p:tabView id="mainTabView" >
+		<p:dialog id="dialog" header="Login" widgetVar="dlg">
+			<h:form id="form">
+				<p:panel id="loginPanel" style="margin-bottom:10px;">
+				<p:messages id="messages" globalOnly="false"/>
+					<h:panelGrid columns="3">
+						<h:outputLabel for="username" value="Benutzername" />
+						<p:inputText id="username" value="#{admin.username}"
+							required="true"
+							requiredMessage="Tragen Sie bitte den Benutzernamen ein."
+							label="Username" /><br />
+						
+						<h:outputLabel for="password" value="Passwort"/>
+						<p:password id="password" value="#{admin.password}" required="true" requiredMessage="Tragen Sie bitte das Passwort ein."/><br />
+						
+						<p:commandButton value="Login" actionListener="#{admin.login}" update="loginPanel" id="login" styleClass="ui-priority-primary" />
+						<p:commandButton value="Schließen" onclick="dlg.hide()" type="button" id="close" styleClass="ui-priority-primary" />
+					</h:panelGrid>
+			</p:panel>
+			</h:form>
+		</p:dialog>
+		<p:tabView id="mainTabView" dynamic="true">
+		
+			<p:ajax event="tabChange" listener="#{tabBean.onTabChange}" />
+		
 			<p:tab id="employee" title="Mitarbeiter">
 				<ui:include src="test2.xhtml"/>
 			</p:tab>
@@ -67,6 +88,9 @@
 			</p:tab>
 			<p:tab id="incidents" title="Incidents">
 				<ui:include src="test2.xhtml"/>
+			</p:tab>
+			<p:tab id="loginTab" titleStyleClass="loginIcon" title="">
+		
 			</p:tab>
 		</p:tabView>
 		

@@ -19,26 +19,8 @@
 		</style>		
 	</h:head>
 	<h:body>
-	<h:form>	
-<h:panelGrid columns="1" cellpadding="5">  
-    <p:commandButton id="basic" value="Basic" onclick="dlg1.show();" type="button" />  
-  
-    <p:commandButton id="modalDialogButton" value="Modal" onclick="dlg2.show();" type="button"/>  
-  
-    <p:commandButton id="effectsDialogButton" value="Effects" onclick="dlg3.show();" type="button" />  
-</h:panelGrid>  
-  
-<p:dialog id="basicDialog" header="Basic Dialog" widgetVar="dlg1">  
-    <h:outputText value="Resistance to PrimeFaces is futile!" />  
-</p:dialog>  
-  
-<p:dialog id="modalDialog" header="Modal Dialog" widgetVar="dlg2" modal="true" height="100">  
-    <h:outputText value="This is a Modal Dialog." />  
-</p:dialog>  
-  
-<p:dialog header="Effects" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="100">  
-    <h:outputText value="This dialog has nice effects." />  
-</p:dialog> 
-	</h:form>
+<h:outputLink id="loginLink" value="javascript:void(0)" onclick="dlg.show()" title="login">     
+    <p:graphicImage value="resources/images/login.png" style="border: none;"/>  
+</h:outputLink>   
 	</h:body>
 </html>
