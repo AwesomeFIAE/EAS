@@ -17,6 +17,7 @@
 		
 		<!-- Mapping-Dateien -->
 		<mapping class="models.Admin"/>
+		<mapping class="models.Employee"/>
 		<mapping class="models.Server"/>
 		<mapping class="models.Assignmentgroup"/>
 		

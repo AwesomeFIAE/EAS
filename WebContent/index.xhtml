@@ -37,7 +37,7 @@
 
 		<p:graphicImage id="banner" value="resources/images/TelekomBanner.jpg" style="border: none;" />
 
-		<p:dialog id="dialog" header="Login" widgetVar="dlg">
+		<p:dialog id="dialog" header="Login" widgetVar="dlg" modal="true">
 			<h:form id="form">
 				<p:panel id="loginPanel" style="margin-bottom:10px;">
 				<p:messages id="messages" globalOnly="false"/>
@@ -62,7 +62,8 @@
 			<p:ajax event="tabChange" listener="#{tabBean.onTabChange}" />
 		
 			<p:tab id="employee" title="Mitarbeiter">
-				<ui:include src="test2.xhtml"/>
+				<ui:include src="employee.xhtml"/>
+<!-- 				<ui:include src="employeeList.xhtml"/> -->
 			</p:tab>
 			<p:tab id="server" title="Server">
 				<ui:include src="test2.xhtml"/>
