@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
@@ -18,7 +20,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.hibernate.HibernateException;
-import org.primefaces.component.datatable.DataTable;
 
 import dao.EmployeeDAO;
 import dao.EmployeeDAOImpl;
@@ -26,7 +27,7 @@ import dao.HibernateUtil;
 
 @Entity
 @Table(name = "eas_employee")
-@Named
+@ManagedBean
 @RequestScoped
 public class Employee implements Serializable {
 
@@ -72,9 +73,8 @@ public class Employee implements Serializable {
 
 	@Transient
 	private static List<Employee> employees;
-
 	
-	static {
+	public Employee() {
 		columns = new ArrayList<String>();
 		columns.add("Bezeichnung");
 		columns.add("Vorname");
@@ -83,13 +83,15 @@ public class Employee implements Serializable {
 		columns.add("Dienstl. Handynummer");
 		columns.add("Private Handynummer");
 		columns.add("Telefonnummer");
-		columns.add("Nst");		
-		
+		columns.add("Nst");	
+	}
+	
+	public void updateEmployeeList() {
 		 EmployeeDAO empDAO = new EmployeeDAOImpl();
 		 employees = empDAO.getAllEmployees();
-		 
+		 System.out.println("hgdhgchg997");
 	}
-
+	
 	public void addToDb() {
 
 		try {
@@ -117,6 +119,30 @@ public class Employee implements Serializable {
 			context.addMessage("addInfo", new FacesMessage(
 					FacesMessage.SEVERITY_FATAL, info, ""));
 		}
+	}
+	
+	public List<SelectItem> getOptions() {
+		this.options = new ArrayList<SelectItem>();
+
+		for (int i = 0; i < EmployeeType.values().length; i++) {
+			switch (EmployeeType.values()[i]) {
+			case EMPLOYEE:
+				this.options.add(new SelectItem("Mitarbeiter"));
+				break;
+			case CHIEF:
+				this.options.add(new SelectItem("Chef"));
+				break;
+			case EXTERNAL_EMPLOYEE:
+				this.options.add(new SelectItem("Externer Mitarbeiter"));
+				break;
+			case OTHER:
+				this.options.add(new SelectItem("Sonstige"));
+				break;
+			}
+
+		}
+
+		return options;
 	}
 
 	public String getWorkgroup() {
@@ -189,30 +215,6 @@ public class Employee implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public List<SelectItem> getOptions() {
-		this.options = new ArrayList<SelectItem>();
-
-		for (int i = 0; i < EmployeeType.values().length; i++) {
-			switch (EmployeeType.values()[i]) {
-			case EMPLOYEE:
-				this.options.add(new SelectItem("Mitarbeiter"));
-				break;
-			case CHIEF:
-				this.options.add(new SelectItem("Chef"));
-				break;
-			case EXTERNAL_EMPLOYEE:
-				this.options.add(new SelectItem("Externer Mitarbeiter"));
-				break;
-			case OTHER:
-				this.options.add(new SelectItem("Sonstige"));
-				break;
-			}
-
-		}
-
-		return options;
 	}
 
 	public void setOptions(List<SelectItem> options) {

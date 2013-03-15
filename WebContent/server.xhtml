@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<title>EAS - Emergency Aid System</title>	
+		
+		<style>
+			.lable {
+				margin-left: 3%;
+			}
+			
+ 			.serverPanel{
+ 				width: 65% !important; 
+ 				margin-bottom:10px;
+			}
+			
+			.serverTable {
+				width: 10%;
+			}
+		</style>
+	</h:head>
+	<h:body>
+		
+		<h:form id="serverForm">
+				<p:panel id="serverPanel" header="Server">
+					<p:panel id="addNewServer" header="Neuen Server anlegen" styleClass="serverPanel">
+						<p:messages id="serverMessages" globalOnly="false" />	
+										
+							<h:panelGrid columns="3" >
+								<h:outputLabel for="serverName" value="Server Name *" />
+								<p:inputText id="serverName" value="#{server.serverName}"
+									required="true"
+									requiredMessage="Tragen Sie bitte den Server Namen ein."
+									label="Server Name" /><br />
+									
+								<h:outputLabel for="adminIP" value="Admin-IP *" />
+								<p:inputText id="adminIP" value="#{server.adminIP}"
+									required="true"
+									requiredMessage="Tragen Sie bitte die Admin-IP ein."
+									label="Admin-IP" /><br />
+								
+								<h:outputLabel for="customerIP" value="Kunden-IP *" />
+								<p:inputText id="customerIP" value="#{server.cumstomerIP}"
+									required="true"
+									requiredMessage="Tragen Sie bitte Kunden-IP ein."
+									label="Kunden-IP" /><br />
+									
+								<p:commandButton value="Hinzufügen" actionListener="#{server.addToDb}" update="serverPanel" ajax="true" id="serverButton" styleClass="ui-priority-primary"/>
+							</h:panelGrid>
+						</p:panel>
+						<p:panel id="serverTablePanel" header="Serverliste">
+							<p:dataTable id="serverTable" var="data" value="#{server.serverList}" styleClass="serverTable">
+							<p:columns value="#{server.columns}" var="column" columnIndexVar="index">
+								<f:facet name="header">
+									<h:outputText value="#{column}"/>
+								</f:facet>
+								<h:outputText value="#{data[index]}"/>
+							</p:columns>
+						</p:dataTable>
+					</p:panel>
+			</p:panel>
+		</h:form>
+		
+	</h:body>
+</html>
