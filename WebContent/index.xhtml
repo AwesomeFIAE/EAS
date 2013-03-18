@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:head>
+		<title>EAS - Emergency Aid System</title>
+		
+		<style>
+ 			#mainTabView { 
+ 				width: 80%; 
+ 				margin-left: auto; 
+ 				margin-right: auto; 
+ 			} 
+ 			
+ 			#banner { 
+ 				display: block;
+ 				margin-left: auto; 
+ 				margin-right: auto; 
+ 			}
+ 			
+ 			.loginIcon {
+ 				background-image: url("resources/images/login.png") !important;
+    			background-size: 50% !important; 
+    			background-repeat:no-repeat !important;
+ 				width: 60px !important; 
+ 				height: 30px !important;
+ 				float: right !important;
+ 			}
+
+			
+		</style>
+	</h:head>
+	<h:body>
+
+		<p:graphicImage id="banner" value="resources/images/TelekomBanner.jpg" style="border: none;" />
+
+		<p:dialog id="dialog" header="Login" widgetVar="dlg" modal="true">
+			<h:form id="form">
+				<p:panel id="loginPanel" style="margin-bottom:10px;">
+				<p:messages id="messages" globalOnly="false"/>
+					<h:panelGrid columns="3">
+						<h:outputLabel for="username" value="Benutzername" />
+						<p:inputText id="username" value="#{admin.username}"
+							required="true"
+							requiredMessage="Tragen Sie bitte den Benutzernamen ein."
+							label="Username" /><br />
+						
+						<h:outputLabel for="password" value="Passwort"/>
+						<p:password id="password" value="#{admin.password}" required="true" requiredMessage="Tragen Sie bitte das Passwort ein."/><br />
+						
+						<p:commandButton value="Login" actionListener="#{admin.login}" update="loginPanel" id="login" styleClass="ui-priority-primary" />
+						<p:commandButton value="Schließen" onclick="dlg.hide()" type="button" id="close" styleClass="ui-priority-primary" />
+					</h:panelGrid>
+			</p:panel>
+			</h:form>
+		</p:dialog>
+		<p:tabView id="mainTabView" dynamic="true">
+		
+			<p:ajax event="tabChange" listener="#{tabBean.onTabChange}" />
+		
+			<p:tab id="employee" title="Mitarbeiter">
+				<ui:include src="employee.xhtml"/>
+<!-- 				<ui:include src="employeeList.xhtml"/> -->
+			</p:tab>
+			<p:tab id="server" title="Server">
+				<ui:include src="server.xhtml"/>
+			</p:tab>
+			<p:tab id="assignmentgroups" title="Assignmentgroups">
+				<ui:include src="test2.xhtml"/>
+			</p:tab>
+			<p:tab id="modelchanges" title="Modelchanges">
+				<ui:include src="test2.xhtml"/>
+			</p:tab>
+			<p:tab id="incidents" title="Incidents">
+				<ui:include src="test2.xhtml"/>
+			</p:tab>
+			<p:tab id="downloads" title="Downloads">
+				<ui:include src="test2.xhtml"/>
+			</p:tab>
+			<p:tab id="loginTab" titleStyleClass="loginIcon" title="">
+		
+			</p:tab>
+		</p:tabView>
+		
+	</h:body>
+</html>
