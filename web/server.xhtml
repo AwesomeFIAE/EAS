@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>EAS - Emergency Aid System</title>	
+
+        <style>
+            .lable {
+                margin-left: 3%;
+            }
+
+            .serverTable {
+                width: 10%;
+            }
+
+            .dropMenu:hover {
+                background-color: white;
+            }
+
+            .dropMenu:active {
+                background-color: white;
+            }
+
+            .editPanel, .deletePanel {
+                width: 41%;
+                float:right;
+            }
+
+            .serverPanel{
+                width: 57% !important; 
+                margin-bottom:10px;
+                float: left;
+            }
+
+            .deletePanel {
+                float: right;
+            }
+
+            .serverList {
+                clear: both;
+            }
+
+            .editServerDialog {
+                border: none;
+            }
+        </style>
+
+        #{serverService.startupList()}
+    </h:head>
+    <h:body>
+
+        <h:form id="serverForm">
+            <p:panel id="serverPanel" header="Server" styleClass="mainPanel">
+                <p:panel id="addNewServer" header="Neuen Server anlegen" styleClass="serverPanel">
+                    <p:messages id="serverMessages" globalOnly="false" />	
+
+                    <h:panelGrid columns="3" >
+                        <h:outputLabel for="serverName" value="Server Name *" />
+                        <p:inputText id="serverName" value="#{serverService.server.serverName}"
+                                     required="true"
+                                     requiredMessage="Tragen Sie bitte den Server Namen ein."
+                                     label="Server Name" /><br />
+
+                        <h:outputLabel for="adminIP" value="Admin-IP *" />
+                        <p:inputText id="adminIP" value="#{serverService.server.adminIP}"
+                                     required="true"
+                                     requiredMessage="Tragen Sie bitte die Admin-IP ein."
+                                     label="Admin-IP" /><br />
+
+                        <h:outputLabel for="customerIP" value="Kunden-IP *" />
+                        <p:inputText id="customerIP" value="#{serverService.server.cumstomerIP}"
+                                     required="true"
+                                     requiredMessage="Tragen Sie bitte Kunden-IP ein."
+                                     label="Kunden-IP" /><br />
+
+                        <p:commandButton value="Hinzufügen" actionListener="#{serverService.addToDb()}" process="@this addNewServer" update="serverPanel" ajax="true" id="serverButton" styleClass="ui-priority-primary"/>
+                    </h:panelGrid>
+                </p:panel>
+
+                <p:panel header="Server bearbeiten" styleClass="editPanel" id="editPanel">
+                    <h:panelGrid columns="4">
+                        <h:outputLabel for="serverBoxEdit" value="Bearbeiten: " />
+                        <p:selectOneMenu id="serverBoxEdit" value="#{serverService.chosenServer}" filter="true"
+                                         effect="fade" filterMatchMode="startsWith" styleClass="dropMenu" >
+                            <f:selectItem itemLabel="Auswählen" itemValue=""/>
+                            <f:selectItems value="#{serverService.options}"/>
+                        </p:selectOneMenu>  
+                        <p:commandButton value="Bearbeiten" actionListener="#{serverService.editServerInformation()}" process="@this editPanel" update="serverPanel" ajax="true"/>
+                    </h:panelGrid>
+                </p:panel>
+
+                <p:panel header="Server entfernen" styleClass="deletePanel" id="deleteServerPanel">
+                    <h:panelGrid columns="4">
+                        <h:outputLabel for="serverBoxDelete" value="Entfernen: " />
+                        <p:selectOneMenu id="serverBoxDelete" value="#{serverService.chosenServer}" filter="true"
+                                         effect="fade" filterMatchMode="startsWith" styleClass="dropMenu" >
+                            <f:selectItem itemLabel="Auswählen" itemValue="" />
+                            <f:selectItems value="#{serverService.options}"/>
+                        </p:selectOneMenu>  
+                        <p:commandButton value="Entfernen" actionListener="#{serverService.deleteServer()}" process="@this deleteServerPanel" update="serverPanel" ajax="true"/>
+                    </h:panelGrid>
+                </p:panel>
+                <p:panel id="serverTablePanel" header="Serverliste" styleClass="serverList">
+                    <p:dataTable id="serverTable" var="data" value="#{serverService.dataTableList}" styleClass="serverTable">
+                        <p:columns value="#{serverService.columns}" var="column" columnIndexVar="index">
+                            <f:facet name="header">
+                                <h:outputText value="#{column}"/>
+                            </f:facet>
+                            <h:outputText value="#{data[index]}"/>
+                        </p:columns>
+                    </p:dataTable>
+                </p:panel>
+
+                <p:dialog header="Server bearbeiten" dynamic="true" modal="true" id="editServerDialog" widgetVar="editServerDialog" styleClass="editServerDialog">
+                    <p:messages id="test" globalOnly="false"/>
+                    <p:panelGrid columns="3">
+                        <h:outputLabel for="editServername" value="Servername *" />
+                        <p:inputText id="editServername" value="#{serverService.server.serverName}"
+                                     required="true" requiredMessage="Tragen Sie bitte den Servername ein."
+                                     label="EditServername" /><br />
+                        <h:outputLabel for="editAdminIP" value="Admin-IP *" />
+                        <p:inputText id="editAdminIP" value="#{serverService.server.adminIP}"
+                                     required="true" requiredMessage="Tragen Sie bitte die Admin-IP ein."
+                                     label="EditAdminIP" /><br />
+                        <h:outputLabel for="editCustomerIP" value="Kunden-IP *" />
+                        <p:inputText id="editCustomerIP" value="#{serverService.server.cumstomerIP}"
+                                     required="true" requiredMessage="Tragen Sie bitte die Kunden-IP ein."
+                                     label="EditCustomerIP" /><br />
+                        <p:commandButton value="Bearbeiten" actionListener="#{serverService.updateServer()}" process="@this editServerDialog" update="serverPanel" ajax="true"/>
+                        <p:commandButton value="Schließen" type="button" onclick="editServerDialog.hide()" />
+                    </p:panelGrid>
+                </p:dialog>
+            </p:panel>
+        </h:form>
+
+    </h:body>
+</html>

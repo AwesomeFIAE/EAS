@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>EAS - Emergency Aid System</title>	
+
+        <style>
+            .lable {
+                margin-left: 3%;
+            }
+
+            .employeePanel{
+                width: 60% !important; 
+                margin-bottom:10px;
+                float: left;
+            }
+
+            .employeeTable {
+                width: 10%;
+            }
+
+            .editEmployeePanel, .deleteEmployeePanel {
+                width: 38%;
+                float: right;
+            }
+
+
+
+            .employeeList {
+                clear: both;
+            }
+
+
+
+        </style>
+
+        #{employeeService.startupList()}
+    </h:head>
+    <h:body>
+
+        <h:form id="form">
+            <p:panel id="employeePanel" header="Mitarbeiter">
+                <p:panel id="addNewEmployee" header="Neuen Mitarbeiter anlegen" styleClass="employeePanel">
+                    <p:messages id="employeeMessages" globalOnly="false"/>	
+                    <h:outputLabel for="lable" value="Bezeichnung: "/>
+                    <h:selectOneMenu id="lable" styleClass="lable" value="#{employeeService.employee.type}">
+                        <f:selectItems value="#{employeeService.options}"/>
+                    </h:selectOneMenu>
+
+                    <h:panelGrid columns="4" >
+                        <h:outputLabel for="firstname" value="Vorname *" />
+                        <p:inputText id="firstname" value="#{employeeService.employee.firstname}"
+                                     required="true"
+                                     requiredMessage="Tragen Sie bitte den Vornamen ein."
+                                     label="Vorname" />
+
+                        <h:outputLabel for="telephoneNumberAtHome" value="Telefonnummer" />
+                        <p:inputText id="telephoneNumberAtHome" value="#{employeeService.employee.telephoneNumberAtHome}"
+                                     label="Telefonnummer" />
+
+                        <h:outputLabel for="surname" value="Nachname *" />
+                        <p:inputText id="surname" value="#{employeeService.employee.surname}"
+                                     required="true"
+                                     requiredMessage="Tragen Sie bitte den Nachnamen ein."
+                                     label="Nachname" />
+
+                        <h:outputLabel for="officialHandyNumber" value="Dienstl. Handynr." />
+                        <p:inputText id="officialHandyNumber" value="#{employeeService.employee.officialHandyNumber}"
+                                     label="Dienstl. Handynr." />
+
+                        <h:outputLabel for="workgroup" value="Arbeitsgruppe *" />
+                        <p:inputText id="workgroup" value="#{employeeService.employee.workgroup}"
+                                     required="true"
+                                     requiredMessage="Tragen Sie bitte die Arbeitsgruppe ein."
+                                     label="Arbeitsgruppe" />
+
+                        <h:outputLabel for="privateHandyNumber" value="Private Handynr." />
+                        <p:inputText id="privateHandyNumber" value="#{employeeService.employee.privateHandyNumber}"
+                                     label="Private Handynr." />
+
+                        <h:outputLabel for="subsidiary" value="Nst *" />
+                        <p:inputText id="subsidiary" value="#{employeeService.employee.subsidiary}"
+                                     required="true"
+                                     requiredMessage="Tragen Sie bitte die Nst ein."
+                                     label="Nst" /><br />
+
+                        <p:commandButton value="Hinzufügen" actionListener="#{employeeService.addToDb()}" update="employeePanel" ajax="true" id="employeeButton" styleClass="ui-priority-primary"/>
+                    </h:panelGrid>
+                </p:panel>
+
+                <p:panel header="Mitarbeiter bearbeiten" styleClass="editEmployeePanel" id="editEmployeePanel">
+                    <h:panelGrid columns="4">
+                        <h:outputLabel for="employeeBoxEdit" value="Bearbeiten: " />
+                        <p:selectOneMenu id="employeeBoxEdit" value="#{employeeService.chosenEmployee}" filter="true"
+                                         effect="fade" filterMatchMode="startsWith" styleClass="dropMenu" >
+                            <f:selectItem itemLabel="Auswählen" itemValue=""/>
+                            <f:selectItems value="#{employeeService.employeeOption}"/>
+                        </p:selectOneMenu>  
+                        <p:commandButton value="Bearbeiten" actionListener="#{employeeService.editEmployeeInformation()}" process="@this editEmployeePanel" update="employeePanel" ajax="true"/>
+                    </h:panelGrid>
+                </p:panel>
+
+                <p:panel header="Mitarbeiter entfernen" styleClass="deleteEmployeePanel" id="deleteEmployeePanel">
+                    <h:panelGrid columns="4">
+                        <h:outputLabel for="employeeBoxDelete" value="Entfernen: " />
+                        <p:selectOneMenu id="employeeBoxDelete" value="#{employeeService.chosenEmployee}" filter="true"
+                                         effect="fade" filterMatchMode="startsWith" styleClass="dropMenu" >
+                            <f:selectItem itemLabel="Auswählen" itemValue="" />
+                            <f:selectItems value="#{employeeService.employeeOption}"/>
+                        </p:selectOneMenu>  
+                        <p:commandButton value="Entfernen" actionListener="#{employeeService.deleteEmployee()}" process="@this deleteEmployeePanel" update="employeePanel" ajax="true"/>
+                    </h:panelGrid>
+                </p:panel>
+
+                <p:panel id="employeeTablePanel" header="Mitarbeiterliste" styleClass="employeeList">
+                    <p:dataTable id="employeeTable" var="data" value="#{employeeService.dataTableList}" styleClass="employeeTable" >
+                        <p:columns value="#{employeeService.columns}" var="column" columnIndexVar="index">
+                            <f:facet name="header">
+                                <h:outputText value="#{column}"/>
+                            </f:facet>
+                            <h:outputText value="#{data[index]}"/>
+                        </p:columns>
+                    </p:dataTable>
+                </p:panel>
+
+
+                <p:dialog id="editEmployeeDialog" header="Mitarbeiter bearbeiten" dynamic="true" modal="true" widgetVar="editEmployee">
+                    <h:panelGrid columns="4" >
+                        <h:outputLabel for="editFirstname" value="Vorname *" />
+                        <p:inputText id="editFirstname" value="#{employeeService.employee.firstname}"
+                                     required="true"
+                                     requiredMessage="Tragen Sie bitte den Vornamen ein."
+                                     label="Vorname" />
+
+                        <h:outputLabel for="editTelephoneNumberAtHome" value="Telefonnummer" />
+                        <p:inputText id="editTelephoneNumberAtHome" value="#{employeeService.employee.telephoneNumberAtHome}"
+                                     label="Telefonnummer" />
+
+                        <h:outputLabel for="editSurname" value="Nachname *" />
+                        <p:inputText id="editSurname" value="#{employeeService.employee.surname}"
+                                     required="true"
+                                     requiredMessage="Tragen Sie bitte den Nachnamen ein."
+                                     label="Nachname" />
+
+                        <h:outputLabel for="editOfficialHandyNumber" value="Dienstl. Handynr." />
+                        <p:inputText id="editOfficialHandyNumber" value="#{employeeService.employee.officialHandyNumber}"
+                                     label="Dienstl. Handynr." />
+
+                        <h:outputLabel for="editWorkgroup" value="Arbeitsgruppe *" />
+                        <p:inputText id="editWorkgroup" value="#{employeeService.employee.workgroup}"
+                                     required="true"
+                                     requiredMessage="Tragen Sie bitte die Arbeitsgruppe ein."
+                                     label="Arbeitsgruppe" />
+
+                        <h:outputLabel for="editPrivateHandyNumber" value="Private Handynr." />
+                        <p:inputText id="editPrivateHandyNumber" value="#{employeeService.employee.privateHandyNumber}"
+                                     label="Private Handynr." />
+
+                        <h:outputLabel for="editSubsidiary" value="Nst *" />
+                        <p:inputText id="editSubsidiary" value="#{employeeService.employee.subsidiary}"
+                                     required="true"
+                                     requiredMessage="Tragen Sie bitte die Nst ein."
+                                     label="Nst" />
+
+                        <p:commandButton value="Bearbeiten" actionListener="#{employeeService.updateEmployee()}" update="employeePanel" ajax="true" process="@this editEmployeeDialog" style="float: right;"/>
+                        <p:commandButton value="Schließen" type="button" onclick="editEmployee.hide()"/>
+
+
+
+                    </h:panelGrid>
+                </p:dialog> 
+
+            </p:panel>
+        </h:form>
+
+    </h:body>
+</html>

@@ -1,0 +1,16 @@
+
+    Datum: 18.03.2013
+
+    Tabellen:
+        - Suchfunktion hinuzufügen
+
+    --------------------------------------------------------------------------------
+   |                                                                                |
+   | Bearbeiten + Löschenboxen:                                                     |
+   |     - Informationen aus der Liste, statt aus der DB entnehmen -> Performance   |
+   |                                                                                |
+   |     Erledigt. Zusätzlich abgefragt ob es mehr als 1000 Datensätze gibt, um     |
+   |     entweder einen Query abzusetzen oder die Liste durchzulaufen.              |
+    -------------------------------------------------------------------------------- 
+
+  
