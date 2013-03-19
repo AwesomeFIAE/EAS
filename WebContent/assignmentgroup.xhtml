@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>EAS - Emergency Aid System</title>	
+    </h:head>
+    <h:body>
+
+        <h:form id="assignGroupForm">
+            <p:panel id="assignmentgroupPanel" header="Assignmentgroup"  style="margin-bottom:10px;">
+                <p:panel id="addAssignGroupPanel" header="Assignmentgroup hinzufügen">
+                    <p:panelGrid columns="2" >
+
+                        <h:outputLabel for="assignName" value="Name *"/>
+                        <p:inputText id="assignName" value="#{assignmentgroupService.assignGroup.name}"
+                                     required="true" requiredMessage="Tragen Sie bitte einen Namen ein." />
+
+                        <h:outputLabel for="assignFunction" value="Funktion *"/>
+                        <p:inputText id="assignFunction" value="#{assignmentgroupService.assignGroup.function}" 
+                                     required="true" requiredMessage="Tragen Sie bitte die Funktion ein." />
+
+                        <h:outputLabel for="assignComment" value="Kommentar *"/>
+                        <p:editor id="assignComment" value="#{assignmentgroupService.assignGroup.comment}"/>
+                    </p:panelGrid>
+
+                </p:panel>
+            </p:panel>
+        </h:form>
+
+    </h:body>
+</html>

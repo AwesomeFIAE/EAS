@@ -3,30 +3,66 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
-        <title>EAS - Emergency Aid System</title>	
+        <title>EAS - Emergency Aid System</title>
+
+        <style>
+            .ui-widget,
+            .ui-widget .ui-widget
+            {
+                font-size: 93% !important;
+            }
+
+            .assTest {
+                border-style: none !important;
+            }
+
+            .entryList {
+                margin-bottom: 10px;
+            }
+
+        </style>
+
+        #{assignmentgroupService.startupList()}
     </h:head>
     <h:body>
 
-        <h:form id="assignGroupForm">
+        <h:form id="assignGroupForm" enctype="multipart/form-data">
             <p:panel id="assignmentgroupPanel" header="Assignmentgroup"  style="margin-bottom:10px;">
                 <p:panel id="addAssignGroupPanel" header="Assignmentgroup hinzufügen">
-                    <p:panelGrid columns="2" >
-
-                        <h:outputLabel for="assignName" value="Name *"/>
+                    <p:messages id="assignGroupMessage" globalOnly="false"/>
+                    <p:panelGrid columns="2" styleClass="assTest">
+                        
+                        <h:outputLabel for="assignName" value="Name: "/>
                         <p:inputText id="assignName" value="#{assignmentgroupService.assignGroup.name}"
                                      required="true" requiredMessage="Tragen Sie bitte einen Namen ein." />
 
-                        <h:outputLabel for="assignFunction" value="Funktion *"/>
+                        <h:outputLabel for="assignFunction" value="Funktion: "/>
                         <p:inputText id="assignFunction" value="#{assignmentgroupService.assignGroup.function}" 
                                      required="true" requiredMessage="Tragen Sie bitte die Funktion ein." />
-
-                        <h:outputLabel for="assignComment" value="Kommentar *"/>
-                        <p:editor id="assignComment" value="#{assignmentgroupService.assignGroup.comment}"/>
+                        
+                        <h:outputLabel for="assignUpload" value="Datei: "/>
+                        <p:fileUpload update="assignGroupMessage" mode="simple" value="#{assignmentgroupService.file}"/>
+                        
+                        <h:outputLabel for="assignComment" value="Kommentar: "/>
+                        <p:editor id="assignComment" value="#{assignmentgroupService.assignGroup.comment}"
+                                  requiredMessage="Tragen Sie bitte einen Kommentar ein"
+                                  required="true"/>
+                        <p:commandButton actionListener="#{assignmentgroupService.addToDb()}" ajax="true" update="assignGroupForm" value="Speichern" />
                     </p:panelGrid>
-
                 </p:panel>
+
+                <p:panel id="assignList" header="Assignment Group Einträge">
+                    <c:forEach var="assignEntry" items="#{assignmentgroupService.groups}">
+                        <p:panel header="Name: #{assignEntry.name}" styleClass="entryList">
+                            <h:outputText value="Funktion: #{assignEntry.function}" /><br />
+                            <h:outputText value="Kommentar: #{assignEntry.comment}" escape="false" />
+                        </p:panel>
+                    </c:forEach>
+                </p:panel>
+
             </p:panel>
         </h:form>
 

@@ -6,7 +6,6 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title>EAS - Emergency Aid System</title>
-	<h:outputScript name="js/jquery-1.9.1.min.js"></h:outputScript>
 </h:head>
 <h:body>
 	<h:form id="form">
@@ -29,7 +28,7 @@
 					<h:outputLabel for="surname" value="Nachname *" />
 					<p:inputText id="surname" value="#{admin.surname}" required="true"
 						requiredMessage="Tragen Sie bitte den Nachnamen ein."
-						requlabel="Surname" />
+						label="Surname" />
 					<p:message for="surname" />
 					
 					<h:outputLabel for="email" value="Email *" />

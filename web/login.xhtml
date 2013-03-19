@@ -4,30 +4,40 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-	<h:head>
-		<title>EAS - Emergency Aid System</title>	
-	</h:head>
-	<h:body>
-		
-		<h:form id="form">
-				<p:panel id="loginPanel"  style="margin-bottom:10px;">
-					<p:messages id="messages" globalOnly="false"/>
-						<h:panelGrid columns="3">
-							<h:outputLabel for="username" value="Benutzername *" />
-							<p:inputText id="username" value="#{admin.username}"
-								required="true"
-								requiredMessage="Tragen Sie bitte den Benutzernamen ein."
-								label="Username" />
-							<p:message for="username" />
-							
-							<h:outputLabel for="password" value="Passwort *"/>
-							<p:password id="password" value="#{admin.password}" required="true" requiredMessage="Tragen Sie bitte das Passwort ein."/>
-							<p:message for="password" />
-							
-							<p:commandButton value="Login" actionListener="#{admin.login}" update="loginPanel" id="login" styleClass="ui-priority-primary" />
-						</h:panelGrid>
-				</p:panel>
-		</h:form>
-		
-	</h:body>
+    <h:head>
+        <title>EAS - Emergency Aid System</title>
+
+        <style>
+
+            .ui-widget,
+            .ui-widget .ui-widget
+            {
+                font-size: 90% !important;
+            }
+
+        </style>
+    </h:head>
+    <h:body>
+
+        <h:form id="form">
+            <p:panel id="loginPanel"  style="margin-bottom:10px;">
+                <p:messages id="messages" globalOnly="false"/>
+                <h:panelGrid columns="3">
+                    <h:outputLabel for="username" value="Benutzername *" />
+                    <p:inputText id="username" value="#{admin.username}"
+                                 required="true"
+                                 requiredMessage="Tragen Sie bitte den Benutzernamen ein."
+                                 label="Username" />
+                    <p:message for="username" />
+
+                    <h:outputLabel for="password" value="Passwort *"/>
+                    <p:password id="password" value="#{admin.password}" required="true" requiredMessage="Tragen Sie bitte das Passwort ein."/>
+                    <p:message for="password" />
+
+                    <p:commandButton value="Login" actionListener="#{admin.login}" update="loginPanel" id="login" styleClass="ui-priority-primary" />
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+
+    </h:body>
 </html>

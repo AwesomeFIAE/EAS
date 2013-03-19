@@ -1,57 +1,67 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<title>EAS - Emergency Aid System</title>
-</h:head>
-<h:body>
-	<h:form id="form">
-		<p:commandButton id="regButton" value="Admin Registrierung" onclick="dlg.show();" type="button" />
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>EAS - Emergency Aid System</title>
 
-		<p:dialog id="dialog" header="Admin Registration" widgetVar="dlg" dynamic="true" modal="true">  
-			<p:panel id="registerPanel" style="margin-bottom:10px;">
-				<p:messages id="messages" globalOnly="false"/>
-				<h:panelGrid columns="3">
-				                   
-					<h:outputLabel for="firstname" value="Vorname *" />
-					<p:inputText id="firstname" value="#{admin.firstname}"
-						required="true"
-						requiredMessage="Tragen Sie bitte den Vornamen ein."
-						label="Firstname">
-						<f:validateLength minimum="2" />
-					</p:inputText>
-					<p:message for="firstname" />
-	
-					<h:outputLabel for="surname" value="Nachname *" />
-					<p:inputText id="surname" value="#{admin.surname}" required="true"
-						requiredMessage="Tragen Sie bitte den Nachnamen ein."
-						label="Surname" />
-					<p:message for="surname" />
-					
-					<h:outputLabel for="email" value="Email *" />
-					<p:inputText id="email" value="#{admin.email}" required="true" requiredMessage="Tragen Sie bitte die Email Adresse ein." label="Email" validatorMessage="Eingetragene Email ist ungültig">
-						<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]"></f:validateRegex>					
-					</p:inputText>
-					<p:message for="email" />
-					
-					<h:outputLabel for="password" value="Passwort *"/>
-					<p:password id="password" value="#{admin.password}" required="true" requiredMessage="Tragen Sie bitte das Passwort ein." feedback="true" inline="true" match="passwordRe" validatorMessage="Überprüfen Sie bitte die eingegebenen Passwörter. Das Passwort muss mindestens eine Länge von 6 Zeichen haben." >
-						<f:validateLength for="password" minimum="6" />
-					</p:password>
-					<p:message for="password" />
-					
-					<h:outputLabel for="passwordRe" value="Passwort Wdh. *" />
-					<p:password id="passwordRe" required="true" requiredMessage="Wiederholen Sie bitte Ihr Passwort." />
-					<p:message for="passwordRe" />
-	
-					<p:commandButton value="Registrieren" actionListener="#{admin.addToDb}" update="registerPanel" id="reg" styleClass="ui-priority-primary" />
-					<p:commandButton value="Schließen" onclick="dlg.hide()" type="button" />
-				</h:panelGrid>
-			</p:panel>
-		</p:dialog>
-	</h:form>
-</h:body>
+        <style>
+
+            .ui-widget,
+            .ui-widget .ui-widget
+            {
+                font-size: 90% !important;
+            }
+
+        </style>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <p:commandButton id="regButton" value="Admin Registrierung" onclick="dlg.show();" type="button" />
+
+            <p:dialog id="dialog" header="Admin Registration" widgetVar="dlg" dynamic="true" modal="true">  
+                <p:panel id="registerPanel" style="margin-bottom:10px;">
+                    <p:messages id="messages" globalOnly="false"/>
+                    <h:panelGrid columns="3">
+
+                        <h:outputLabel for="firstname" value="Vorname *" />
+                        <p:inputText id="firstname" value="#{admin.firstname}"
+                                     required="true"
+                                     requiredMessage="Tragen Sie bitte den Vornamen ein."
+                                     label="Firstname">
+                            <f:validateLength minimum="2" />
+                        </p:inputText>
+                        <p:message for="firstname" />
+
+                        <h:outputLabel for="surname" value="Nachname *" />
+                        <p:inputText id="surname" value="#{admin.surname}" required="true"
+                                     requiredMessage="Tragen Sie bitte den Nachnamen ein."
+                                     label="Surname" />
+                        <p:message for="surname" />
+
+                        <h:outputLabel for="email" value="Email *" />
+                        <p:inputText id="email" value="#{admin.email}" required="true" requiredMessage="Tragen Sie bitte die Email Adresse ein." label="Email" validatorMessage="Eingetragene Email ist ungültig">
+                            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]"></f:validateRegex>					
+                        </p:inputText>
+                        <p:message for="email" />
+
+                        <h:outputLabel for="password" value="Passwort *"/>
+                        <p:password id="password" value="#{admin.password}" required="true" requiredMessage="Tragen Sie bitte das Passwort ein." feedback="true" inline="true" match="passwordRe" validatorMessage="Überprüfen Sie bitte die eingegebenen Passwörter. Das Passwort muss mindestens eine Länge von 6 Zeichen haben." >
+                            <f:validateLength for="password" minimum="6" />
+                        </p:password>
+                        <p:message for="password" />
+
+                        <h:outputLabel for="passwordRe" value="Passwort Wdh. *" />
+                        <p:password id="passwordRe" required="true" requiredMessage="Wiederholen Sie bitte Ihr Passwort." />
+                        <p:message for="passwordRe" />
+
+                        <p:commandButton value="Registrieren" actionListener="#{admin.addToDb}" update="registerPanel" id="reg" styleClass="ui-priority-primary" />
+                        <p:commandButton value="Schließen" onclick="dlg.hide()" type="button" />
+                    </h:panelGrid>
+                </p:panel>
+            </p:dialog>
+        </h:form>
+    </h:body>
 </html>
